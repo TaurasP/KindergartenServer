@@ -1,10 +1,12 @@
 package lt.viko.eif.tpetrauskas.kindergarten.service;
 
+import lt.viko.eif.tpetrauskas.kindergarten.response.ChildResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Child;
 import lt.viko.eif.tpetrauskas.kindergarten.repository.ChildRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ChildService {
@@ -14,8 +16,8 @@ public class ChildService {
         this.childRepository = childRepository;
     }
 
-    public List<Child> getAllChildren() {
-        return childRepository.findAll();
+    public List<ChildResponse> getAllChildren() {
+        return mapToChildResponse(childRepository.findAll());
     }
 
     public Child createChild(Child child) {
@@ -36,5 +38,11 @@ public class ChildService {
 
     public void deleteChild(Long id) {
         childRepository.deleteById(id);
+    }
+
+    private List<ChildResponse> mapToChildResponse(List<Child> children) {
+        return children.stream()
+                .map(ChildResponse::new)
+                .collect(Collectors.toList());
     }
 }

@@ -1,5 +1,6 @@
 package lt.viko.eif.tpetrauskas.kindergarten.controller;
 
+import lt.viko.eif.tpetrauskas.kindergarten.response.ChildResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Child;
 import lt.viko.eif.tpetrauskas.kindergarten.service.ChildService;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,7 +25,7 @@ public class ChildController {
     }
 
     @GetMapping
-    public List<Child> getAllChildren() {
+    public List<ChildResponse> getAllChildren() {
         return childService.getAllChildren();
     }
 

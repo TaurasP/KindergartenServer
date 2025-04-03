@@ -1,6 +1,7 @@
 package lt.viko.eif.tpetrauskas.kindergarten.controller;
 
 import lt.viko.eif.tpetrauskas.kindergarten.model.Group;
+import lt.viko.eif.tpetrauskas.kindergarten.response.GroupResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.service.GroupService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,7 +25,7 @@ public class GroupController {
     }
 
     @GetMapping
-    public List<Group> getAllGroups() {
+    public List<GroupResponse> getAllGroups() {
         return groupService.getAllGroups();
     }
 

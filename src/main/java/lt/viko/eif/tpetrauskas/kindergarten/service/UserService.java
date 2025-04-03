@@ -4,6 +4,7 @@ import lt.viko.eif.tpetrauskas.kindergarten.config.JwtUtil;
 import lt.viko.eif.tpetrauskas.kindergarten.model.User;
 import lt.viko.eif.tpetrauskas.kindergarten.repository.UserRepository;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -29,9 +30,15 @@ public class UserService {
 
     public ResponseEntity<String> login(User user) {
         Optional<User> existingUser = userRepository.findByEmail(user.getEmail());
-        if (existingUser.isPresent() && passwordEncoder.matches(user.getPassword(), existingUser.get().getPassword())) {
-            String token = jwtUtil.generateToken(user.getEmail());
-            return ResponseEntity.ok("Bearer " + token);
+        if (existingUser.isPresent()) {
+            if (new BCryptPasswordEncoder(12).matches(user.getPassword(), existingUser.get().getPassword())) {
+                String token = jwtUtil.generateToken(user.getEmail());
+                return ResponseEntity.ok("Bearer " + token);
+            } else {
+                System.out.println("Password mismatch");
+            }
+        } else {
+            System.out.println("User not found");
         }
         return ResponseEntity.status(401).body("Invalid credentials");
     }

@@ -2,9 +2,11 @@ package lt.viko.eif.tpetrauskas.kindergarten.service;
 
 import lt.viko.eif.tpetrauskas.kindergarten.model.Group;
 import lt.viko.eif.tpetrauskas.kindergarten.repository.GroupRepository;
+import lt.viko.eif.tpetrauskas.kindergarten.response.GroupResponse;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class GroupService {
@@ -14,8 +16,8 @@ public class GroupService {
         this.groupRepository = groupRepository;
     }
 
-    public List<Group> getAllGroups() {
-        return groupRepository.findAll();
+    public List<GroupResponse> getAllGroups() {
+        return mapGroupsToGroupResponses(groupRepository.findAll());
     }
 
     public Group createGroup(Group group) {
@@ -34,4 +36,11 @@ public class GroupService {
     public void deleteGroup(Long id) {
         groupRepository.deleteById(id);
     }
+
+    public List<GroupResponse> mapGroupsToGroupResponses(List<Group> groups) {
+        return groups.stream()
+                .map(GroupResponse::new)
+                .collect(Collectors.toList());
+    }
+
 }
