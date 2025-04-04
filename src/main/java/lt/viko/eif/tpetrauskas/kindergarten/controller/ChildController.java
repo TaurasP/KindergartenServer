@@ -25,6 +25,11 @@ public class ChildController {
         this.childService = childService;
     }
 
+    @GetMapping("/{id}")
+    public ChildResponse getChildById(@PathVariable Long id) {
+        return childService.getChildById(id);
+    }
+
     @GetMapping
     public List<ChildResponse> getAllChildren() {
         return childService.getAllChildren();

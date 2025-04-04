@@ -1,7 +1,5 @@
 package lt.viko.eif.tpetrauskas.kindergarten.service;
 
-import lt.viko.eif.tpetrauskas.kindergarten.model.Group;
-import lt.viko.eif.tpetrauskas.kindergarten.repository.GroupRepository;
 import lt.viko.eif.tpetrauskas.kindergarten.response.ChildResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Child;
 import lt.viko.eif.tpetrauskas.kindergarten.repository.ChildRepository;
@@ -20,6 +18,13 @@ public class ChildService {
     public ChildService(ChildRepository childRepository) {
         this.childRepository = childRepository;
     }
+
+    public ChildResponse getChildById(Long id) {
+        return childRepository.findById(id)
+                .map(ChildResponse::new)
+                .orElseThrow(() -> new RuntimeException("Child not found"));
+    }
+
 
     public List<ChildResponse> getAllChildren() {
         return mapToChildResponse(childRepository.findAll());
