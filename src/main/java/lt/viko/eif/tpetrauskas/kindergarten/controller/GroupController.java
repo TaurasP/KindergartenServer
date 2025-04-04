@@ -3,6 +3,7 @@ package lt.viko.eif.tpetrauskas.kindergarten.controller;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Group;
 import lt.viko.eif.tpetrauskas.kindergarten.response.GroupResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.service.GroupService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -20,6 +21,7 @@ public class GroupController {
 
     private final GroupService groupService;
 
+
     public GroupController(GroupService groupService) {
         this.groupService = groupService;
     }
@@ -30,12 +32,12 @@ public class GroupController {
     }
 
     @PostMapping
-    public Group createGroup(@RequestBody Group group) {
+    public ResponseEntity<String> createGroup(@RequestBody Group group) {
         return groupService.createGroup(group);
     }
 
     @PutMapping("/{id}")
-    public Group updateGroup(@PathVariable Long id, @RequestBody Group group) {
+    public ResponseEntity<String> updateGroup(@PathVariable Long id, @RequestBody Group group) {
         return groupService.updateGroup(id, group);
     }
 

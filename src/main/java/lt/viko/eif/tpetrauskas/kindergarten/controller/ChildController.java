@@ -3,6 +3,7 @@ package lt.viko.eif.tpetrauskas.kindergarten.controller;
 import lt.viko.eif.tpetrauskas.kindergarten.response.ChildResponse;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Child;
 import lt.viko.eif.tpetrauskas.kindergarten.service.ChildService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -30,12 +31,12 @@ public class ChildController {
     }
 
     @PostMapping
-    public Child createChild(@RequestBody Child child) {
+    public ResponseEntity<String> createChild(@RequestBody Child child) {
         return childService.createChild(child);
     }
 
     @PutMapping("/{id}")
-    public Child updateChild(@PathVariable Long id, @RequestBody Child child) {
+    public ResponseEntity<String> updateChild(@PathVariable Long id, @RequestBody Child child) {
         return childService.updateChild(id, child);
     }
 

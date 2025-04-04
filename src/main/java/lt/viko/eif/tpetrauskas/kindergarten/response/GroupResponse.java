@@ -1,16 +1,20 @@
 package lt.viko.eif.tpetrauskas.kindergarten.response;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import lt.viko.eif.tpetrauskas.kindergarten.model.Group;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
+@Setter
+@NoArgsConstructor
 public class GroupResponse {
-    private final Long id;
-    private final String name;
-    private final List<ChildResponse> children;
+    private Long id;
+    private String name;
+    private List<ChildResponse> children;
 
     public GroupResponse(Group group) {
         this.id = group.getId();
