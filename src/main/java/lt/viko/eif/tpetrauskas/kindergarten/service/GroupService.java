@@ -44,9 +44,14 @@ public class GroupService {
         return new ResponseEntity<>("Group updated", HttpStatus.OK);
     }
 
-    public void deleteGroup(Long id) {
-        groupRepository.deleteById(id);
+    public void deleteGroup(Long groupId) {
+        Group group = groupRepository.findById(groupId)
+                .orElseThrow(() -> new RuntimeException("Group not found"));
+        group.getChildren().forEach(child -> child.setGroup(null));
+        childRepository.saveAll(group.getChildren());
+        groupRepository.delete(group);
     }
+
 
     public List<GroupResponse> mapGroupsToGroupResponses(List<Group> groups) {
         return groups.stream()
